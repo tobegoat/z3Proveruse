@@ -1,1 +1,14 @@
 #z3prover
+# z3的简单使用
+x=Int('X')
+y=Int('Y')
+solve(x>2,y<10,x+2*y==7)
+#z3的简化输出
+x=Int('X')
+y=Int('Y')
+print(simplify(x+y+2*x+3))
+#z3的遍历
+x=Int('X')
+y=Int('Y')
+n=x+y>=3
+print("num_args:",n_num_args())
