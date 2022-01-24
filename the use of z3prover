@@ -12,3 +12,15 @@ x=Int('X')
 y=Int('Y')
 n=x+y>=3
 print("num_args:",n_num_args())
+#z3中solve的使用
+x=Real('X')
+y=Real('Y')
+solve(x>0,y<0)
+# 输出的结果为 no solution
+s=Solver()
+#可使用add()方法进行添加约束条件
+s.add(x>0,y==x+2)
+#使用check()方法进行条件判断是否有解
+print(s.check())
+  如果有解 输出结果为sat
+#z3解决n八皇后问题
