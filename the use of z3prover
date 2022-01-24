@@ -23,4 +23,36 @@ s.add(x>0,y==x+2)
 #使用check()方法进行条件判断是否有解
 print(s.check())
   如果有解 输出结果为sat
-#z3解决n八皇后问题
+  
+#问题一 猫狗老鼠问题
+dog, cat, mouse = Ints('dog cat mouse')
+solve(dog >= 1,   # 最少一个
+      cat >= 1,   # 最少一个
+      mouse >= 1, # 最少一个
+      #总共需要一百个
+      dog + cat + mouse == 100,
+      #  总资金共有10000
+      #   狗 1500 
+      #   猫 100 
+      #   老鼠 25
+      1500 * dog + 100 * cat + 25 * mouse == 10000)
+  
+#问题二 z3解决n八皇后问题
+# 把皇后放在整数行列中 分别用整数来表示
+Queens = [ Int('Q_%i' % (i + 1)) for i in range(8) ]
+
+# 每个皇后放在一列 
+val_c = [ And(1 <= Queens[i], Queens[i] <= 8) for i in range(8) ]
+ 
+# 至少一个皇后一列
+col_c = [ Distinct(Queens) ]
+
+#斜约束
+diag_c = [ If(i == j,
+              True,
+              And(Queens[i] - Queens[j] != i - j, Queens[i] - Queens[j] != j - i))
+           for i in range(8) for j in range(i) ]
+
+solve(val_c + col_c + diag_c)
+
+
